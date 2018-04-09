@@ -1,4 +1,7 @@
-var apiKey = '202a1e578200308633eb3a9efa8a9420';
+var apiKey = '7528a9b5ce72454ebb0111506180904';
+var typeOfTmp = 'C';
+var myPosition ='';
+
 
 function getLocalisation(){
 
@@ -11,34 +14,39 @@ function getLocalisation(){
   }
 }
 
-function getData(position){
-  getWeather(position);
-  getCity(position);
-};
-
-function getWeather(position){
-  console.log("http://samples.openweathermap.org/data/2.5/weather?lat="+position.coords.latitude+"&lon="+position.coords.longitude+"&appid="+apiKey);
-
-  $.getJSON( "http://samples.openweathermap.org/data/2.5/weather?q=London&appid=b6907d289e10d714a6e88b30761fae22",
-    function( json ) {
-    console.log(JSON.stringify(json));
-      $('#tmp').html(json['main']['main.temp']+"°F");
-
-     });
+function changeTypeOfTemp(position,tmpUnity){
+  if (tmpUnity == 'C'){
+    typeOfTmp = 'F';
+    getWeather(position,typeOfTmp);
+  }
+  else if (tmpUnity == 'F'){
+    typeOfTmp = 'C';
+    getWeather(position,typeOfTmp);
+  }
 }
 
-
-function getCity(position){
-
-  $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng='+position.coords.latitude+','+position.coords.longitude +'&key=AIzaSyC1VDOxeqIGd8yi0YC7ZG6p47s0_CzKkEM',function( city ){
-     $('#city').html(city['results']['0']['address_components']['2']['long_name']);
-     $('#cityUp').html(city['results']['0']['address_components']['3']['long_name']);
-  });
+function getData(position){
+  getWeather(position,typeOfTmp);
+  myPosition = position;
 };
 
-function transformToF(tmpInCelsius){
-  var tmpInF = ((tmpInCelsius*9)/5)+32;
-  return tmpInF;
-};
+function getWeather(position,tmpUnity){
+  $.getJSON( "http://api.apixu.com/v1/current.json?key="+apiKey+"&q="+position.coords.latitude+","+position.coords.longitude,
+    function( json ) {
+      if (tmpUnity === 'C'){
+        $('#tmp').html(json['current']['temp_c']+"°C");
+      } else if (tmpUnity === 'F'){
+        $('#tmp').html(json['current']['temp_f']+"°F");
+      }
+      $('#condition').html(json['current']['condition']['text']);
+      $('#illustration').attr('src',"http:"+json['current']['condition']['icon']);
+      $('#where').html(json['location']['name']+' - '+json['location']['country']);
+      $('#when').html(json['location']['localtime'])
+    });
+}
 
 getLocalisation();
+
+$('#tmp').click(function(){
+  changeTypeOfTemp(myPosition,typeOfTmp);
+});
