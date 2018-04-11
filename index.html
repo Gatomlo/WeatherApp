@@ -5,23 +5,30 @@
   <title>Weather App</title>
   <link rel="stylesheet" href="weather.css" >
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 
 
 </head>
 <body>
-  <div id="where"></div>
-  <div id="when"></div>
-  <div id="meteo">
-    <img id="illustration" src=''>
-    <div id="tmp"></div>
+  <div id='myApp'>
+    <header id="header">
+      <div id="where">
+        <div id="whereCity"></div>
+        <div id="whereCountry"></div>
+      </div>
+      <div  id="refresh"><i class="fas fa-sync"></i></div>
+    </header>
+    <hr>
+    <div id="meteo">
+      <img id="illustration" src=''>
+      <div id="tmp"></div>
+    </div>
+    <div id="precision">
+      <div id="condition"></div>
+      <div id="when"></div>
+    </div>
   </div>
-
-    <div id="condition"></div>
-
-
-
-  <!-- <script src="./panda-bridge-2.0.2.min.js"></script> -->
-
+  
   <script src="weather.js"></script>
 </body>
 </html>

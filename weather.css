@@ -1,8 +1,8 @@
 body{
-text-align:center;
-display:flex;
-flex-direction: column;
+display: flex;
 justify-content: center;
+align-items: center;
+height: 600px;
 }
 
 #meteo{
@@ -10,9 +10,32 @@ justify-content: center;
   display:flex;
   justify-content: center;
   align-items: center;
+  margin-top: 35px;
+  margin-bottom: 35px;
 }
-#where{
+#whereCity{
   font-size:2em;
   margin-bottom:5px;
   margin-top: 20px;
+}
+
+#myApp{
+  color:white;
+  background-color: white;
+  width:25%;
+  text-align: left;
+  padding: 20px;
+  background-image: radial-gradient(circle at center, grey, #00001a);
+  border-radius: 20px;
+}
+
+#precision{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+#header{
+  display: flex;
+  justify-content: space-between;
 }
